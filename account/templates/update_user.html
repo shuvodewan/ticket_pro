@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+Update User
+{% endblock %}
+
+{% block container %}
+ <!-- ============================================================== -->
+                        <!-- basic form  -->
+                        <!-- ============================================================== -->
+                        <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    
+                                    <div class="card">
+                                        <h5 class="card-header">Update User</h5>
+                                        <div class="card-body">
+                                            <form method="POST" enctype="multipart/form-data">
+                                               
+                                               <div class="form-group">
+                                                  
+                                                    <label for="inputText3" class="col-form-label">Username</label>
+                                                    {{form.username}}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail">Email address</label>
+                                                    {{form.email}}
+                                                    <p>We'll never share your email with anyone else.</p>
+                                                </div>
+                                                {% if user.is_authenticated %}   
+                                                {% if user.is_superuser %}
+                                                <div class="form-group">
+                                                    <label for="inputEmail">{{form.is_staff.label}}</label>
+                                                    {{form.is_staff}}
+                                                    <p>Only Admin Can change it</p>
+                                                </div>
+                                                {% endif %}
+                                                {% endif %}
+                                                <div class="form-group error">
+                                                        <p style="color:red;">{{form.confirm_password.errors}}</p>
+                                                    <label for="inputPassword">Password</label>
+                                                    <input type="password" name="password" class="form-control" placeholder="password" maxlength="50">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                   
+                                                        <label for="inputPassword">Confirm Password</label>
+                                                        <input type="password" name="confirm_password" class="form-control" placeholder="password" maxlength="50" >
+                                                    </div>
+                                                {{profileform.as_p}} 
+                                                
+                                                
+                                                <input type="submit" value="Submit" class="btn btn-success">
+                                            {% csrf_token %}
+
+                                            </form>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end basic form  -->
+                            <!-- ============================================================== -->
+{% endblock %}
+

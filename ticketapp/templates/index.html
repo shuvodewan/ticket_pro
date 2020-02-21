@@ -1,0 +1,366 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block container %}
+{% if user.is_staff %}
+<div class="row">
+    <!-- ============================================================== -->
+    <!-- four widgets   -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- total views   -->
+    <!-- ============================================================== -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-inline-block">
+                    <h5 class="text-muted">Total Complain</h5>
+                    <h2 class="mb-0"> {{total_complain}}</h2>
+                </div>
+                <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
+                    <i class="fas fa-sticky-note fa-fw fa-sm text-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end total views   -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- total followers   -->
+    <!-- ============================================================== -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-inline-block">
+                    <h5 class="text-muted">Total Solved</h5>
+                    <h2 class="mb-0"> {{total_solved}}</h2>
+                </div>
+                <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                    <i class="fas fa-sticky-note fa-fw fa-sm text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end total followers   -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- partnerships   -->
+    <!-- ============================================================== -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-inline-block">
+                    <h5 class="text-muted">Total Clients</h5>
+                    <h2 class="mb-0">{{total_client}}</h2>
+                </div>
+                <div class="float-right icon-circle-medium  icon-box-lg  bg-secondary-light mt-1">
+                    <i class="fa fa-user fa-fw fa-sm text-secondary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end partnerships   -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- total earned   -->
+    <!-- ============================================================== -->
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-inline-block">
+                    <h5 class="text-muted">Total Members</h5>
+                    <h2 class="mb-0"> {{total_member}}</h2>
+                </div>
+                <div class="float-right icon-circle-medium  icon-box-lg  bg-brand-light mt-1">
+                    <i class="fa fa-user fa-fw fa-sm text-brand"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end total earned   -->
+    <!-- ============================================================== -->
+</div>
+{% endif %}
+{% if user.is_staff == False %}
+{% if complain %}
+<div class="row">
+    <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header p-4">
+                    <a class="pt-2 d-inline-block" ><strong>Nmae</strong>: CONCERN </a>
+                
+                <div class="float-right"> <h3 class="mb-0">Ticket: #{{complain.ticket.ticket_id}}</h3>
+                {{ticket.date}}</div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h5 class="mb-3">Client:</h5>                                            
+                        <h3 class="text-dark mb-1">{{complain.ticket.complain.user.profile.firstname}} {{complain.ticket.complain.user.profile.lastname}}</h3>
+                        <div>Email: {{complain.ticket.complain.user.email}}</div>
+                        <div>Phone: {{complain.ticket.complain.user.profile.phonenumber}}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5 class="mb-3">Concern:</h5>
+                        <h3 class="text-dark mb-1">{{complain.ticket.concern.profile.firstname}} {{complain.ticket.concern.profile.lastname}}</h3>                                            
+                        
+                        <div>Email: {{complain.ticket.concern.email}}</div>
+                        <div>Phone: {{complain.ticket.concern.profile.phonenumber}}</div>
+                    </div>
+                </div>
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="center">S/N</th>
+                                <th>Subject</th>
+                                <th>Description</th>
+                                <th class="right">status</th>                                    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center">1</td>
+                                <td class="left strong">{{complain.ticket.complain.subject}}</td>
+                                <td class="left">{{complain.ticket.complain.complain}}</td>
+                                    <th class="right">{{complain.ticket.status}}</th>
+                                
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                    </div>
+                    
+                </div>
+            </div>                
+          </div>
+     </div>
+  </div>
+<div class="row">
+    <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+                <div class="simple-card">
+                    <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active border-left-0" id="product-tab-1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="product-tab-1" aria-selected="true">Conversation with concern</a>                        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " id="product-tab-1" data-toggle="tab" href="#tab-2" role="tab" aria-controls="product-tab-1" aria-selected="true">Image</a>                        
+                        </li>
+						
+                    </ul>
+                    <div class="tab-content" id="myTabContent5">
+                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="product-tab-1">
+                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+                      <div class="card">
+
+                       
+
+                          <div class="card-body">
+
+
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+
+                              <form action="{% url 'ticketapp:conversation' %}" method="POST">
+
+
+
+                                <div class="form-row">
+
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Message" name="message"></textarea>
+                                    </div>
+                                  </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                              <div class="input-group mb-3">                                               
+                                                <input type="hidden"name="ticket" value={{complain.ticket.pk}}>
+                                                <button type="submit" class="btn btn-primary">Reply</button>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                                 {% csrf_token %}
+                              </form>
+
+                             </div>
+
+
+                          </div>
+						  {% if complain.ticket.conversation_set.all %}
+                          <div class="notification-list">
+                              <div class="list-group">
+                                {% for reply in complain.ticket.conversation_set.all %}
+                                  <a class="list-group-item list-group-item-action active">
+                                      <div class="notification-info">
+                                          <div class="notification-list-user-img"><img src="{{ reply.user.profile.image.url }}" alt="" class="user-avatar-md rounded-circle"></div>
+                                          <div class="notification-list-user-block"><span class="notification-list-user-name">  {{reply.user}}</span>{{ reply.text }}
+                                              <div class="notification-date">{{ reply.date }}</div>
+                                          </div>
+                                      </div>
+                                  </a>
+                                    {% endfor %}
+                              </div>
+                          </div>
+						  {% endif %}
+
+                            <h5 class="card-header"></h5>
+
+                      </div>
+
+                    </div> 
+                        </div>
+						
+						<!--tab2-->
+						<div class="tab-pane fade " id="tab-2" role="tabpanel" aria-labelledby="product-tab-1">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60"">
+                                <div class="card">
+                                    <img class="img-fluid" src="{{complain.ticket.complain.image.url}}" alt="Card image cap">
+                                    <div class="card-body">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						</div>
+                        
+                    </div>
+					
+					
+                </div>
+            </div>
+        </div>
+        
+    </div>
+	</div>
+{% else %}
+<div class="row">
+<!--ticket-->
+
+<!--endticket-->	
+	
+    <!-- ============================================================== -->
+    <!-- valifation types -->
+    <!-- ============================================================== -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Post Complain</h5>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" action="{% url 'ticketapp:complain_create' %}" >
+                    
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Subject</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                           {{complain_form.subject}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Image</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                           {{complain_form.image}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Description</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                           {{complain_form.complain}}
+                        </div>
+                    </div>
+                    {% csrf_token %}
+                    <div class="form-group row text-right">
+                        <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+                            <button type="submit" class="btn btn-space btn-primary">Submit</button>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end valifation types -->
+    <!-- ============================================================== -->
+</div>
+{% endif %}
+{% endif %}
+{% if user.is_staff %}
+<div class="row">
+    <!-- ============================================================== -->
+<!-- basic table  -->
+<!-- ============================================================== -->
+{% if complain or search %}
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		<div class="card">
+			<h5 class="card-header">Complain-List</h5>
+			<div class="card-body">
+				<div class="table-responsive">
+				   
+					<table class="table table-striped table-bordered first">
+						<thead>
+							<tr>
+								<th>Subject</th>
+								<th>User</th>
+								<th>Date</th>                                                    
+								<th class="text-center"style=" width: 200px;"><a  class="badge badge-success" >Action<span> </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for complain in complain %}
+							
+							
+							<tr>
+								<td>{{complain.subject}}</td>
+								<td>{{complain.user}}</td>
+								<td>{{complain.date}}</td>
+							   
+								<td class="text-center" style=" width: 200px; justify-content-center;">{% if complain.ticket %}<a style=" margin-right: 10px;" href="{% url 'ticketapp:ticket_disc' pk=complain.ticket.pk %}"class="badge badge-primary">Raised</a>{% else %}<a style=" margin-right: 10px;" href="{% url 'ticketapp:raise_ticket' pk=complain.pk %}"class="badge badge-primary">Raise Ticket</a>{% endif %}</td>
+							</tr>
+							
+						   {% endfor %}
+					</table>
+					
+				   
+				</div>
+				
+			</div>
+		</div>
+		
+		<nav aria-label="Page navigation example">
+				<ul class="pagination">
+				   {% if complain.has_previous %}
+					<li class="page-item"><a class="page-link" href="?complain=1">&laquo; first</a></li>
+					<li class="page-item"><a class="page-link" href="?complain={{ obj.previous_page_number }}">previous</a></li>
+					{% endif %}
+					 <li class="page-item"><a class="page-link" class="page-link" href="#">Page {{ complain.number }} of {{ complain.paginator.num_pages }} | total complain {{ complain.paginator.count }}</a></li>
+					{% if complain.has_next %}
+
+					<li class="page-item"><a class="page-link" href="?complain={{ complain.next_page_number }}">Next</a></li>
+					 <li class="page-item"> <a class="page-link" href="?complain={{ complain.paginator.num_pages }}">last &raquo;</a></li>
+					 {% endif %}
+			   </ul>
+		   </nav>
+	</div>
+
+    {% endif %}
+	
+	<!-- ============================================================== -->
+	<!-- end basic table  -->
+	<!-- ============================================================== -->
+   
+</div> 
+
+
+
+{% endif %}
+{% endblock %}

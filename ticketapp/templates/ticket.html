@@ -1,0 +1,167 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ticket{% endblock %}
+{% block container %}
+<div class="row">
+    <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header p-4">
+                    <a class="pt-2 d-inline-block" ><strong>Nmae</strong>: CONCERN </a>
+                
+                <div class="float-right"> <h3 class="mb-0">Ticket: #{{ticket.ticket_id}}</h3>
+                {{ticket.date}}</div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h5 class="mb-3">Client:</h5>                                            
+                        <h3 class="text-dark mb-1">{{ticket.complain.user.profile.firstname}} {{ticket.complain.user.profile.lastname}}</h3>
+                        <div>Email: {{ticket.complain.user.email}}</div>
+                        <div>Phone: {{ticket.complain.user.profile.phonenumber}}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5 class="mb-3">Concern:</h5>
+                        <h3 class="text-dark mb-1">{{ticket.concern.profile.firstname}} {{ticket.concern.profile.lastname}}</h3>                                            
+                        
+                        <div>Email: {{ticket.concern.email}}</div>
+                        <div>Phone: {{ticket.concern.profile.phonenumber}}</div>
+                    </div>
+                </div>
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="center">S/N</th>
+                                <th>Subject</th>
+                                <th>Description</th>
+                                <th class="right">status</th>                                    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center">1</td>
+                                <td class="left strong">{{ticket.complain.subject}}</td>
+                                <td class="left">{{ticket.complain.complain}}</td>
+                                    <th class="right">{{ticket.status}}</th>
+                                
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                    </div>
+                    
+                </div>
+            </div>                
+          </div>
+     </div>
+  </div>
+<div class="row">
+    <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+                <div class="simple-card">
+                    <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active border-left-0" id="product-tab-1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="product-tab-1" aria-selected="true">Conversation with concern</a>                        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " id="product-tab-1" data-toggle="tab" href="#tab-2" role="tab" aria-controls="product-tab-1" aria-selected="true">Image</a>                        
+                        </li>
+                        {% if ticket.status == "solved" %}
+                        {% else %}
+						<li class="nav-item">
+                            <a class="nav-link "  href="{% url 'ticketapp:closeticket' pk=ticket.pk %}" role="tab" >Close the ticket</a> 
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="tab-content" id="myTabContent5">
+                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="product-tab-1">
+                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+                      <div class="card">
+
+                       
+
+                          <div class="card-body">
+
+
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+
+                              <form action="{% url 'ticketapp:conversation' %}" method="POST">
+
+
+
+                                <div class="form-row">
+
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Message" name="message"></textarea>
+                                    </div>
+                                  </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                              <div class="input-group mb-3">                                               
+                                                <input type="hidden"name="ticket" value={{ticket.pk}}>
+                                                <button type="submit" class="btn btn-primary">Reply</button>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                                 {% csrf_token %}
+                              </form>
+
+                             </div>
+
+
+                          </div>
+						  {% if ticket.conversation_set.all %}
+                          <div class="notification-list">
+                              <div class="list-group">
+                                {% for reply in ticket.conversation_set.all %}
+                                  <a class="list-group-item list-group-item-action active">
+                                      <div class="notification-info">
+                                          <div class="notification-list-user-img"><img src="{{ reply.user.profile.image.url }}" alt="" class="user-avatar-md rounded-circle"></div>
+                                          <div class="notification-list-user-block"><span class="notification-list-user-name">  {{reply.user}}</span>{{ reply.text }}
+                                              <div class="notification-date">{{ reply.date }}</div>
+                                          </div>
+                                      </div>
+                                  </a>
+                                    {% endfor %}
+                              </div>
+                          </div>
+								{% endif %}
+                            <h5 class="card-header"></h5>
+
+                      </div>
+
+                    </div> 
+                        </div>
+						
+						<!--tab2-->
+						<div class="tab-pane fade " id="tab-2" role="tabpanel" aria-labelledby="product-tab-1">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60"">
+                                <div class="card">
+                                    <img class="img-fluid" src="{{ticket.complain.image.url}}" alt="Card image cap">
+                                    <div class="card-body">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						</div>
+                        
+                    </div>
+					
+					
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
