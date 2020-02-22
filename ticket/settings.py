@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
      # 'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     # ...
 ]
 
@@ -129,9 +129,9 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
-STATICFILES_DIRS = [
-    STATIC_DIR,
-]
+#STATICFILES_DIRS = [
+ #   STATIC_DIR,
+#]
 
 #MEDIA
 MEDIA_URL = '/media/'
