@@ -45,7 +45,7 @@ class LoginTestView(LoginView):
         return con
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('secret/', admin.site.urls),
     path('',views.index,name="index"),
     path('account/',include('account.urls'),name='account'),
     path('ticket/',include("ticketapp.urls"),name="ticket"),
